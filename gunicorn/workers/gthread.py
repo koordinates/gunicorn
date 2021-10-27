@@ -266,7 +266,7 @@ class ThreadWorker(base.Worker):
         try:
             start_time = time.monotonic()
             queued_time_ms = round((start_time - enqueue_time) * 1000)
-            if not self.cfg.get("statsd_host", None):
+            if self.cfg.get("statsd_host", None):
                 self.log.histogram("gunicorn.request_queued_time_ms", queued_time_ms)
             req = next(conn.parser)
             if not req:
